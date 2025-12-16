@@ -1,23 +1,25 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.js"
 import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/auth.js";
 
 dotenv.config();
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
-const PORTs = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.use("/api/users",authRoutes)
+const startServer = async () => {
+  try {
+    await connectDB(); // connect DB first
+    app.use("/api/users", authRoutes);
 
-console.log("Mongo URI:", process.env.MONGODB_URI);
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+  } catch (error) {
+    console.error("Server failed to start:", error.message);
+  }
+};
 
-// connect to database
-connectDB();
-
-app.listen(PORTs, () => {
-    console.log(`Server started at port ${PORTs}`);
-});
+startServer();
 

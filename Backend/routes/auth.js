@@ -1,86 +1,66 @@
-import express from 'express'
-import User from '../models/user.js'
-import { protect } from '../middleware/midauth.js';
-import jwt from "jsonwebtoken"
+import express from "express";
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
+import { protect } from "../middleware/midauth.js";
 
 const router = express.Router();
 
+const generateToken = (id) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 
-router.post('/reg',async (req,res)=>{
- const {username,email,password} = req.body;
-    try{
+// REGISTER
+router.post("/reg", async (req, res) => {
+  const { username, email, password } = req.body;
 
-       if(!username || !email || !password){
-        return res.status(400).json({message: "Please fill all fields"})
-       }
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "Please fill all fields" });
+  }
 
-       const userExists = await User.findOne({email});
-       if(userExists){
-        return res.status(400).json({message:"user already exists"})
-       }
-         
-       const user = await User.create({username, email ,password});
-       const token = generateToken(user._id);
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists) return res.status(400).json({ message: "User already exists" });
 
-       res.status(201).json({
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        token,
-       })
+    const user = await User.create({ username, email, password });
 
-    }catch(error){
-       res.status(500).json({message: "Server error"})
-    }
-})
-
-
-
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
-    try {
-        // 1. Check all fields
-        if (!email || !password) {
-            return res.status(400).json({ message: "Please fill all fields" });
-        }
-
-        // 2. Check if user exists
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: "Invalid email or password" });
-        }
-
-        // 3. Compare password
-        const isMatch = await user.matchPassword(password);
-        if (!isMatch) {
-            return res.status(400).json({ message: "Invalid email or password" });
-        }
-
-        // 4. Success response
-        res.status(200).json({
-            id: user._id,
-            username: user.username,
-            email: user.email,
-            message: "Login successful"
-        });
-
-    } catch (error) {
-        res.status(500).json({ message: "Server error" });
-    }
+    res.status(201).json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
+// LOGIN
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ message: "Please fill all fields" });
 
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: "Invalid email or password" });
 
-router.get("/me",protect, async (req,res)=>{
-    res.json(200).json(req.user)
-})
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
+    res.status(200).json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
-const generateToken = (id)=>{
-    return jwt.sign({id},process.env.JWT_SECRET,{expiresIn: "30d"})
-}
-
-
+// GET PROFILE
+router.get("/me", protect, async (req, res) => {
+  res.status(200).json(req.user);
+});
 
 export default router;
