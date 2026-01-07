@@ -1,32 +1,41 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
-import authRoutes from "./routes/auth.js";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import userRoutes from "./routes/auth.js";
 import cors from "cors";
+
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+
+// Middleware
+app.use(express.json());        // parse JSON body
+app.use(cookieParser());        // parse cookies
+
 
 app.use(
   cors({
     origin: "http://localhost:5173", // frontend URL
-    credentials: true,
+    credentials: true,               // ⭐ allow cookies
   })
 );
+// Routes
+app.use("/api/users", userRoutes);
 
+// Test route (optional)
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
+// Database connection
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error(err));
+
+// Start server
 const PORT = process.env.PORT || 5000;
-
-const startServer = async () => {
-  try {
-    await connectDB(); // connect DB first
-    app.use("/api/users", authRoutes);
-
-    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-  } catch (error) {
-    console.error("Server failed to start:", error.message);
-  }
-};
-
-startServer();
-
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);
