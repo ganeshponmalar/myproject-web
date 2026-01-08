@@ -93,10 +93,6 @@ router.post("/login", async (req, res) => {
 
 
 
-
-
-
-
 // GET PROFILE
 router.get("/me", protect, async (req, res) => {
   res.status(200).json(req.user);
