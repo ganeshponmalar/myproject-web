@@ -18,11 +18,10 @@ const Register = () => {
     // Handle input change
     const handleChange = (e) => {
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
+            ...formData,   //Copies existing values so they are not erased.
+            [e.target.name]: e.target.value,//Dynamically selects field
         });
     };
-
 
 
     // Handle form submit
@@ -44,7 +43,6 @@ const Register = () => {
                 }
             );
 
-     
             const data = await res.json();
         
             if (!res.ok) {
@@ -57,7 +55,7 @@ const Register = () => {
         } catch (err) {
             setError(err.message);
         } finally {
-            setLoading(false);
+            setLoading(false); 
         }
     };
 
