@@ -26,7 +26,7 @@ const Login = ({ setUser }) => {
           password,
         },
         {
-          withCredentials: true, // ⭐ REQUIRED
+          withCredentials: true, 
         }
       );
 

@@ -19,7 +19,7 @@ const Register = () => {
     const handleChange = (e) => {
         setFormData({
             ...formData,   //Copies existing values so they are not erased.
-            [e.target.name]: e.target.value,//Dynamically selects field
+            [e.target.name]: e.target.value,
         });
     };
 
