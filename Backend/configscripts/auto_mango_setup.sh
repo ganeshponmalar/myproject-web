@@ -71,9 +71,17 @@ mongoimport --db mydatabase --collection users --file users.txt
 
 
 
+
+ echo "--------------------------------------------------------------------------------"
+
+
+
+
 echo "automation script "
 
 
+
+echo "frontend url"
 http://localhost:5173/
 http://localhost:5173/login
 http://localhost:5173/register
