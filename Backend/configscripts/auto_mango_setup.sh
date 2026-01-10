@@ -66,7 +66,6 @@ echo "Database & Collection created automatically!"
 echo "Import completed!"
 
 
-mongoimport --db mydatabase --collection users --file users.txt
 
 
 
@@ -165,6 +164,5 @@ db.users.find().pretty()
 
 
 
-8.MongoDB creates database and collection ONLY when data is inserted
-
-mongoimport --db "$DB" --collection "$COLLECTION" --file "$FILE"
+#MongoDB creates database and collection ONLY when data is inserted
+mongoimport --db mydatabase --collection users --file users.txt
