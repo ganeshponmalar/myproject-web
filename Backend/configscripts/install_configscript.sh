@@ -102,3 +102,5 @@ echo " Setup completed successfully!"
 echo " Next steps:"
 echo " cd frontend"
 echo "   npm run dev"
+
+echo "completed"
