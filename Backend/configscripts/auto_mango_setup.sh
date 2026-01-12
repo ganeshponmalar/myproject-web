@@ -103,7 +103,6 @@ Save → CTRL+O → ENTER → CTRL+X
 
 
 
-
 4.CREATE AUTOMATION SCRIPT
 nano auto_mongo.sh
 
@@ -151,7 +150,6 @@ chmod +x auto_mongo.sh
 
 6.VERIFY THE PROOF
 mongosh
-
 
 
 
