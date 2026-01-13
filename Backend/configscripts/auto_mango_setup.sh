@@ -78,8 +78,6 @@ echo "Import completed!"
 
 echo "automation script "
 
-
-
 echo "frontend url"
 http://localhost:5173/
 http://localhost:5173/login
