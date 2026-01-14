@@ -94,7 +94,7 @@ cd mongo_auto
 nano users.txt
 
 3.THEN  COPY PASTE  IT 
-{"username":"kumar01","name":"Kumar","email":"kumar@gmail.com","age":25}
+{"username":"unknow","name":"unknow","email":"unknow@gmail.com","age":24}
 {"username":"suresh01","name":"Suresh","email":"suresh@gmail.com","age":30}
 
 Save → CTRL+O → ENTER → CTRL+X
