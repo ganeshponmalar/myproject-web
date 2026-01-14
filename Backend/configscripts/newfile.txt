@@ -29,3 +29,6 @@
 
 {"username":"unknow","name":"unknow","email":"unknow@gmail.com","age":24}
 {"username":"suresh01","name":"Suresh","email":"suresh@gmail.com","age":30}
+
+{"username":"stranger","name":"stranger","email":"stranger@gmail.com","age":24}
+{"username":"barath","name":"barath","email":"barath@gmail.com","age":30}
