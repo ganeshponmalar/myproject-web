@@ -11,7 +11,7 @@ const Register = () => {
         password: "",
     });
 
-  
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -23,7 +23,7 @@ const Register = () => {
         });
     };
 
-
+   
     // Handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ const Register = () => {
             );
 
             const data = await res.json();
-        
+
             if (!res.ok) {
                 throw new Error(data.message || "Registration failed");
             }
@@ -55,7 +55,7 @@ const Register = () => {
         } catch (err) {
             setError(err.message);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 

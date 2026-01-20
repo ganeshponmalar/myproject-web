@@ -66,17 +66,12 @@ echo "Database & Collection created automatically!"
 echo "Import completed!"
 
 
-
-
-
-
-
  echo "--------------------------------------------------------------------------------"
 
 
 
 
-echo "automation script "
+echo "automation script INSERTING DATA"
 
 echo "frontend url"
 http://localhost:5173/

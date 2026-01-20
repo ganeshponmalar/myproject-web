@@ -26,6 +26,8 @@ router.post("/reg", async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+
+
     // 3️ Create user (password auto-hashed by mongoose)
     const user = await User.create({
       username,
